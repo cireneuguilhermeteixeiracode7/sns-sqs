@@ -15,9 +15,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/davi-code7/orchy-base"
+    "url": "https://github.com/davi-code7/sns-sqs"
   },
-  "homepage": "https://github.com/davi-code7/orchy-base/#readme",
+  "homepage": "https://github.com/davi-code7/sns-sqs/#readme",
   "publishConfig": {
     "access": "public"
   },
