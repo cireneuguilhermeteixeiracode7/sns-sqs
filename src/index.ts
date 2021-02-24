@@ -48,36 +48,3 @@ export default class SnsSqsSlq {
     return await subscribeToTopicFun(topicArn, queueArn);
   }
 }
-
-const snsSqnSlq = new SnsSqsSlq();
-
-async function funcCreateTopic() {
-  const newQueue: any = await snsSqnSlq.createOrGetQueue("code8");
-
-  const queueAttribute = await snsSqnSlq.getQueueAttributes(newQueue.QueueUrl);
-
-  const newTopic: ICreateTopicFun = await snsSqnSlq.createOrGetTopic("code8");
-
-  console.log("queueAttributes:", queueAttribute);
-
-  console.log("newTopic:", newTopic);
-
-  const newSubscription = await snsSqnSlq.subscribeToTopic(
-    newTopic.TopicArn,
-    queueAttribute.Attributes.QueueArn
-  );
-
-  const newPublishMessage = await snsSqnSlq.publishToTopic(
-    newTopic.TopicArn.split(":")[5],
-    "Code8 Test Message",
-    "tested",
-    "resd",
-    newTopic.TopicArn
-  );
-
-  console.log("newPublishMessage:", newPublishMessage);
-
-  console.log("newSubscription:", newSubscription);
-}
-
-// funcCreateTopic();
