@@ -12,6 +12,11 @@ import {
 import { ICreateTopicFun, ICreateQueueFun } from "./interfaces/controllers";
 
 export default class SnsSqsSlq {
+  private test: boolean = false;
+  constructor() {
+    this.test = !this.test;
+  }
+
   async createOrGetTopic(topicName: string): Promise<ICreateTopicFun> {
     return await createOrGetTopicFun(topicName);
   }
