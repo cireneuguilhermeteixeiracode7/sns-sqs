@@ -1,21 +1,32 @@
 import "dotenv/config";
 
 import {
+  getAllTopicsFun,
   createOrGetTopicFun,
   publishToTopicFun,
   getTopicAttributesFun,
   subscribeToTopicFun,
   createOrGetQueueFun,
   getQueueAttributesFun,
+  getAllQueueFun,
 } from "./controllers";
 
-import { ICreateTopicFun, ICreateQueueFun } from "./interfaces/controllers";
-
+import { ICreateTopicFun, ICreateQueueFun, IGetAllQueueFun } from "./interfaces/controllers";
+import {IGetAllTopicsReturn} from "./interfaces/controllers/sns";
 export default class SnsSqsSlq {
   private test: boolean = false;
   constructor() {
     this.test = !this.test;
   }
+
+  async getAllTopics(): Promise<IGetAllTopicsReturn> {
+    return await getAllTopicsFun();
+  }
+
+  async getAllQueue(): Promise<IGetAllQueueFun> {
+    return await getAllQueueFun();
+  }
+
 
   async createOrGetTopic(topicName: string): Promise<ICreateTopicFun> {
     return await createOrGetTopicFun(topicName);

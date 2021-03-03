@@ -1,5 +1,5 @@
 import AWS from "../../config/aws/config";
-import { standartazeTopicName } from "@utils/validators";
+import { standartazeTopicName } from "../../utils/validators";
 import { ICreateTopicReturn } from "../../interfaces/controllers/sns";
 
 export default function getTopic(
@@ -9,7 +9,7 @@ export default function getTopic(
 
   return new Promise((resolve, reject) => {
     try {
-      const listTopics = new AWS.SNS({ apiVersion: "2010-03-31" })
+      const listTopics = new AWS.SNS({ apiVersion: process.env.AWS_API_VERSION })
         .listTopics({})
         .promise();
 

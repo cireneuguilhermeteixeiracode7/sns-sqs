@@ -1,6 +1,7 @@
 import checkIfTopicExists from "./sns/checkIfTopicExists";
 import createTopic from "./sns/createTopic";
 import publishToTopic from "./sns/publishToTopic";
+import getAllTopics from "./sns/getAllTopics";
 import getTopic from "./sns/getTopic";
 import getTopicAttribute from "./sns/getTopicAttributes";
 import subscribeToTopic from "./sns/subscribeToTopic";
@@ -8,6 +9,7 @@ import subscribeToTopic from "./sns/subscribeToTopic";
 import createQueue from "./sqs/createQueue";
 import checkIfQueueExists from "./sqs/checkIfQueueExists";
 import getQueue from "./sqs/getQueue";
+import getAllQueue from "./sqs/getAllQueue";
 import getQueueAttribute from "./sqs/getQueueAttribute";
 
 import {
@@ -53,8 +55,7 @@ export async function publishToTopicFun(
   topicArn: string
 ): Promise<any> {
   try {
-    const sdTopicName: string = standartazeTopicName(topicName);
-    const ifTopicExists: boolean = await checkIfTopicExists(sdTopicName);
+    const ifTopicExists: boolean = await checkIfTopicExists(topicName);
 
     if (ifTopicExists) {
       const publishedMessage = await publishToTopic(
@@ -64,12 +65,25 @@ export async function publishToTopicFun(
         messageDeduplicationId
       );
       return publishedMessage;
+    }else{
+      throw("Topic does not exist in that region.")
     }
   } catch (err) {
     error(err);
     throw err;
   }
 }
+
+
+export async function getAllTopicsFun(): Promise<any> {
+  try {
+    return getAllTopics();
+  } catch (err) {
+    error(err);
+    throw err;
+  }
+}
+
 
 export async function getTopicAttributesFun(topicArn: string): Promise<any> {
   try {
@@ -79,6 +93,8 @@ export async function getTopicAttributesFun(topicArn: string): Promise<any> {
 
     if (ifTopicExists) {
       return getTopicAttribute(topicArn);
+    } else {
+      throw("Topic does not exist in that region.")
     }
   } catch (err) {
     error(err);
@@ -97,6 +113,8 @@ export async function subscribeToTopicFun(
 
     if (ifTopicExists) {
       return subscribeToTopic(topicArn, queueArn);
+    }else{
+      throw("Topic does not exist in that region.");
     }
   } catch (err) {
     error(err);
@@ -105,6 +123,17 @@ export async function subscribeToTopicFun(
 }
 
 // SQS
+
+export async function getAllQueueFun(): Promise<any> {
+  try {
+    return getAllQueue();
+  } catch (err) {
+    error(err);
+    throw err;
+  }
+}
+
+
 export async function createOrGetQueueFun(
   queueName: string
 ): Promise<ICreateQueueFun> {
@@ -140,6 +169,8 @@ export async function getQueueAttributesFun(queueUrl: string): Promise<any> {
 
     if (ifQueueExists) {
       return getQueueAttribute(queueUrl);
+    }else {
+      throw("Queue does not exist in that region.")
     }
   } catch (err) {
     error(err);
