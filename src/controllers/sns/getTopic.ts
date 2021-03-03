@@ -1,5 +1,5 @@
 import AWS from "../../config/aws/config";
-import { standartazeTopicName } from "@utils/validators";
+import { standartazeTopicName } from "../../utils/validators";
 import { ICreateTopicReturn } from "../../interfaces/controllers/sns";
 
 export default function getTopic(
