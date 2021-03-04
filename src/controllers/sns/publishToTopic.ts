@@ -15,7 +15,7 @@ export default async function publish(
         MessageDeduplicationId: messageDeduplicationId,
       };
 
-      const publishTopic = new AWS.SNS({ apiVersion: "2010-03-31" })
+      const publishTopic = new AWS.SNS({ apiVersion: process.env.AWS_API_VERSION })
         .publish(params)
         .promise();
 

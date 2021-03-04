@@ -4,7 +4,7 @@ export default function getQueueAttributes(queueUrl: string): Promise<any> {
   return new Promise((resolve, reject) => {
     try {
       const queueAttributes = new AWS.SQS({
-        apiVersion: "2012-11-05",
+        apiVersion: process.env.AWS_API_VERSION,
       })
         .getQueueAttributes({
           QueueUrl: queueUrl,

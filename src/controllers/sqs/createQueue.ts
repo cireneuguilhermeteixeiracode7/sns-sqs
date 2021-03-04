@@ -6,7 +6,7 @@ export default (queueName: string): Promise<any> => {
 
   return new Promise((resolve, reject) => {
     try {
-      const createQueue = new AWS.SQS({ apiVersion: "2012-11-05" })
+      const createQueue = new AWS.SQS({ apiVersion: process.env.AWS_API_VERSION })
         .createQueue({
           QueueName: sdQueueName,
           Attributes: {

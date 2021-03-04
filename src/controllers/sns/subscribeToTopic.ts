@@ -4,7 +4,7 @@ import AWS from "../../config/aws/config";
 export default (topicArn: string, queueArn: string): Promise<any> => {
   return new Promise((resolve, reject) => {
     try {
-      const subscribeToTopic = new AWS.SNS({ apiVersion: "2010-03-31" })
+      const subscribeToTopic = new AWS.SNS({ apiVersion: process.env.AWS_API_VERSION })
         .subscribe({
           TopicArn: topicArn,
           Protocol: "sqs",

@@ -7,7 +7,7 @@ export default (topicName: string): Promise<ICreateTopicReturn> => {
 
   return new Promise((resolve, reject) => {
     try {
-      const createTopic = new AWS.SNS({ apiVersion: "2010-03-31" })
+      const createTopic = new AWS.SNS({ apiVersion: process.env.AWS_API_VERSION })
         .createTopic({
           Name: sdTopicName,
           Attributes: {

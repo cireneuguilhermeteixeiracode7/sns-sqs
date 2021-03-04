@@ -3,6 +3,11 @@ export interface ICreateTopicReturn {
   TopicArn: string;
 }
 
+export interface IGetAllTopicsReturn {
+  ResponseMetadata: { RequestId: string };
+  Topics: Array<IGetTopicReturn>;
+}
+
 export interface IGetTopicReturn {
   TopicArn: string;
 }

@@ -8,14 +8,14 @@ export default async function checkIfTopicExists(
 
   return new Promise((resolve, reject) => {
     try {
-      const listTopics = new AWS.SNS({ apiVersion: "2010-03-31" })
+      const listTopics = new AWS.SNS({ apiVersion: process.env.AWS_API_VERSION })
         .listTopics({})
         .promise();
       listTopics
-        .then((data) => {
+        .then((data) => {          
           let found: boolean = false;
-          data.Topics.forEach((topic) => {
-            if (topic.TopicArn.split(":")[5] === sdTopicName) {
+          data.Topics.forEach((topic) => {            
+            if (standartazeTopicName(topic.TopicArn.split(":")[5]) === sdTopicName) {
               found = true;
             }
           });

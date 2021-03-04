@@ -4,6 +4,14 @@ export interface ICreateTopicFun {
   TopicName?: string;
 }
 
+
+export interface IGetAllQueueFun {
+  ResponseMetadata: {
+    RequestId: string;
+  };
+  QueueUrls?: Array<string>;
+}
+
 export interface ICreateQueueFun {
   ResponseMetadata: {
     RequestId: string;

@@ -1,11 +1,13 @@
 import checkIfTopicExists from "@controllers/sns/checkIfTopicExists";
 import createTopic from "@controllers/sns/createTopic";
 import getTopic from "@controllers/sns/getTopic";
+import getAllTopics from "@controllers/sns/getAllTopics";
 import getTopicAttributes from "@controllers/sns/getTopicAttributes";
 import publishToTopic from "@controllers/sns/publishToTopic";
 import subscribeToTopic from "@controllers/sns/subscribeToTopic";
 
 import getQueue from "@controllers/sqs/getQueue";
+import getAllQueue from "@controllers/sqs/getAllQueue";
 import getQueueAttributes from "@controllers/sqs/getQueueAttribute";
 
 import {
@@ -14,6 +16,7 @@ import {
   IGetTopicAttributesReturn,
   ISubscribeReturn,
   IPublishReturn,
+  IGetAllTopicsReturn,
 } from "@interfaces/controllers/sns";
 
 import { IGetQueueReturn } from "@interfaces/controllers/sqs";
@@ -23,6 +26,16 @@ describe("SNS tests", () => {
     const ifTopicExists: boolean = await checkIfTopicExists("code8");
 
     expect(typeof ifTopicExists).toBe("boolean");
+  });
+
+
+  it("should get all topics from your default region.", async () => {
+    const topicsResponse: IGetAllTopicsReturn = await getAllTopics();
+    
+    expect(typeof topicsResponse).toBe("object");
+    expect(typeof topicsResponse.ResponseMetadata).toBe("object");
+    expect(typeof topicsResponse.ResponseMetadata.RequestId).toBe("string");
+    expect(typeof topicsResponse.Topics.length).toBe("number");
   });
 
   it("should create a topic", async () => {

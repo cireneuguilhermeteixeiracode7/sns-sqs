@@ -5,7 +5,7 @@ export default function getTopicAttributes(topicArn: string): Promise<any> {
   return new Promise((resolve, reject) => {
     try {
       const topicAttributes = new AWS.SNS({
-        apiVersion: "2010-03-31",
+        apiVersion: process.env.AWS_API_VERSION,
       })
         .getTopicAttributes({ TopicArn: topicArn })
         .promise();
