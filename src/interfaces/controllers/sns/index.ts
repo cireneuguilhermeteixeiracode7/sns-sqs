@@ -8,6 +8,21 @@ export interface IGetAllTopicsReturn {
   Topics: Array<IGetTopicReturn>;
 }
 
+export interface ISubscription {
+  Endpoint: string;
+  Owner: string;
+  Protocol: string;
+  SubscriptionArn: string;
+  TopicArn: string;
+}
+
+export interface IGetSubscriptionsInTopic {
+  ResponseMetadata: { RequestId: string };
+  Subscriptions: Array<ISubscription>;
+}
+
+
+
 export interface IGetTopicReturn {
   TopicArn: string;
 }

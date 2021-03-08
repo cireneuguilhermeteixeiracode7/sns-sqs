@@ -1,4 +1,3 @@
-import { standartazeTopicName } from "../../utils/validators";
 import AWS from "../../config/aws/config";
 
 export default (topicArn: string, queueArn: string): Promise<any> => {
@@ -17,7 +16,7 @@ export default (topicArn: string, queueArn: string): Promise<any> => {
           resolve(data);
         })
         .catch((err) => {
-          throw err;
+           reject(err);
         });
     } catch (e) {
       reject(e);

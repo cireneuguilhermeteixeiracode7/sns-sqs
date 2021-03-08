@@ -5,6 +5,8 @@ import getAllTopics from "./sns/getAllTopics";
 import getTopic from "./sns/getTopic";
 import getTopicAttribute from "./sns/getTopicAttributes";
 import subscribeToTopic from "./sns/subscribeToTopic";
+import setFilterPolicyAttributeInSubscription from "./sns/setFilterPolicyAttributeInSubscription";
+import getSubscriptionsInTopic from "./sns/getSubscriptionsInTopic";
 
 import createQueue from "./sqs/createQueue";
 import checkIfQueueExists from "./sqs/checkIfQueueExists";
@@ -116,6 +118,25 @@ export async function subscribeToTopicFun(
     }else{
       throw("Topic does not exist in that region.");
     }
+  } catch (err) {
+    error(err);
+    throw err;
+  }
+}
+
+
+export async function setFilterPolicyAttributeInSubscriptionFun(SubscriptionArn: string, attributeValue: string): Promise<any> {
+  try {
+    return setFilterPolicyAttributeInSubscription(SubscriptionArn, attributeValue);
+  } catch (err) {
+    error(err);
+    throw err;
+  }
+}
+
+export async function getSubscriptionsInTopicFun(topicArn: string) {
+  try {
+    return getSubscriptionsInTopic(topicArn);
   } catch (err) {
     error(err);
     throw err;
