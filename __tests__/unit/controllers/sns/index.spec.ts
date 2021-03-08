@@ -4,7 +4,9 @@ import getTopic from "@controllers/sns/getTopic";
 import getAllTopics from "@controllers/sns/getAllTopics";
 import getTopicAttributes from "@controllers/sns/getTopicAttributes";
 import publishToTopic from "@controllers/sns/publishToTopic";
+import getSubscriptionsInTopic from "@controllers/sns/getSubscriptionsInTopic";
 import subscribeToTopic from "@controllers/sns/subscribeToTopic";
+import setFilterPolicyAttributeInSubscription from "@controllers/sns/setFilterPolicyAttributeInSubscription";
 
 import getQueue from "@controllers/sqs/getQueue";
 import getAllQueue from "@controllers/sqs/getAllQueue";
@@ -17,6 +19,7 @@ import {
   ISubscribeReturn,
   IPublishReturn,
   IGetAllTopicsReturn,
+  IGetSubscriptionsInTopic
 } from "@interfaces/controllers/sns";
 
 import { IGetQueueReturn } from "@interfaces/controllers/sqs";
@@ -128,6 +131,36 @@ describe("SNS tests", () => {
       expect(typeof publishment.SequenceNumber).toBe("string");
       expect(typeof publishment.ResponseMetadata).toBe("object");
       expect(typeof publishment.ResponseMetadata.RequestId).toBe("string");
+    }
+  });
+
+  it("should get topic subscritions", async () => {
+    const topic: IGetTopicReturn = await getTopic("code8");
+
+    if (topic) {
+      const subscriptionsInTopic: IGetSubscriptionsInTopic = await getSubscriptionsInTopic(topic.TopicArn);
+      expect(typeof subscriptionsInTopic).toBe("object");
+      expect(typeof subscriptionsInTopic.Subscriptions).toBe("object");
+      expect(typeof subscriptionsInTopic.Subscriptions.length).toBe("number");
+      expect(typeof subscriptionsInTopic.ResponseMetadata).toBe("object");
+      expect(typeof subscriptionsInTopic.ResponseMetadata.RequestId).toBe("string");
+    }
+  });
+
+
+  it("should to change subscrition property.", async () => {
+    const topic: IGetTopicReturn = await getTopic("code8");
+
+    if (topic) {
+      const subscriptionsInTopic: IGetSubscriptionsInTopic = await getSubscriptionsInTopic(topic.TopicArn);
+      let subscription = await setFilterPolicyAttributeInSubscription(
+        subscriptionsInTopic.Subscriptions[0].SubscriptionArn,JSON.stringify({
+          test:['1','2','3']
+        }));
+        
+      expect(typeof subscription).toBe("object");
+      expect(typeof subscription.ResponseMetadata).toBe("object");
+      expect(typeof subscription.ResponseMetadata.RequestId).toBe("string");
     }
   });
 });
