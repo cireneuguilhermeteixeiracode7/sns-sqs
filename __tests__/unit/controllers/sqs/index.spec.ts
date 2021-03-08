@@ -40,9 +40,10 @@ describe("SQS tests", () => {
   });
 
   it("should get queue attributes", async () => {
-    const attributes: IQueueAttribute = await getQueueAttributes(
-      "https://sqs.us-east-1.amazonaws.com/303732912389/code10.fifo"
-    );
+
+    const queue: ICreateQueueFun = await getQueue("code10");
+
+    const attributes: IQueueAttribute = await getQueueAttributes(queue.QueueUrl);
 
     expect(typeof attributes).toBe("object");
     expect(typeof attributes.ResponseMetadata).toBe("object");
