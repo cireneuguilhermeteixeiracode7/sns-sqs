@@ -20,7 +20,7 @@ export default (topicName: string): Promise<ICreateTopicReturn> => {
           resolve(data);
         })
         .catch((err) => {
-          throw err;
+          reject(err);
         });
     } catch (e) {
       reject(e);

@@ -102,16 +102,16 @@ describe("SNS tests", () => {
 
       const queueAttributes: any = await getQueueAttributes(queue.QueueUrl);
 
-      if (topicAttributes) {
+      if (topicAttributes) {        
         const subscription: ISubscribeReturn = await subscribeToTopic(
           topicAttributes.Attributes.TopicArn,
-          queueAttributes.Attributes.QueueArn
+          queueAttributes.Attributes.QueueArn,
+          queue.QueueUrl
         );
-
+        
         expect(typeof subscription).toBe("object");
         expect(typeof subscription.ResponseMetadata).toBe("object");
         expect(typeof subscription.ResponseMetadata.RequestId).toBe("string");
-        expect(typeof subscription.SubscriptionArn).toBe("string");
       }
     }
   });
@@ -154,9 +154,9 @@ describe("SNS tests", () => {
     if (topic) {
       const subscriptionsInTopic: IGetSubscriptionsInTopic = await getSubscriptionsInTopic(topic.TopicArn);
       let subscription = await setFilterPolicyAttributeInSubscription(
-        subscriptionsInTopic.Subscriptions[0].SubscriptionArn,JSON.stringify({
+        subscriptionsInTopic.Subscriptions[0].SubscriptionArn, {
           test:['1','2','3']
-        }));
+        });
         
       expect(typeof subscription).toBe("object");
       expect(typeof subscription.ResponseMetadata).toBe("object");

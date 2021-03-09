@@ -41,7 +41,7 @@ export default async function getQueue(
           }
         })
         .catch((err) => {
-          throw err;
+          reject(err);
         });
     } catch (e) {
       reject(e);

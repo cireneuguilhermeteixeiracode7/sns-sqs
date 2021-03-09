@@ -26,7 +26,7 @@ export default function getTopic(
           }
         })
         .catch((err) => {
-          throw err;
+          reject(err);
         });
     } catch (e) {
       reject(e);

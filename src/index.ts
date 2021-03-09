@@ -15,7 +15,7 @@ import {
 
 import { ICreateTopicFun, ICreateQueueFun, IGetAllQueueFun } from "./interfaces/controllers";
 import {IGetAllTopicsReturn} from "./interfaces/controllers/sns";
-import { IGetSubscriptionsInTopic } from "./interfaces/controllers/sns/index";
+import { IGetSubscriptionsInTopic, IAttributeValue, IMessageAttributes } from "./interfaces/controllers/sns/index";
 
 export default class SnsSqsSlq {
   private test: boolean = false;
@@ -36,23 +36,30 @@ export default class SnsSqsSlq {
     return await createOrGetTopicFun(topicName);
   }
 
-  async createOrGetQueue(queueNane: string): Promise<ICreateQueueFun> {
-    return await createOrGetQueueFun(queueNane);
+  async createOrGetQueue(queueName: string): Promise<ICreateQueueFun> {
+    return await createOrGetQueueFun(queueName);
   }
+
+  async subscribeToTopic(topicArn: string, queueArn: string, queueUrl: string): Promise<any> {
+    return await subscribeToTopicFun(topicArn, queueArn, queueUrl);
+  }
+
 
   async publishToTopic(
     topicName: string,
     message: string,
     messageGroupId: string,
     messageDeduplicationId: string,
-    topicArn: string
+    topicArn: string,
+    MessageAttributes?:IMessageAttributes
   ) {
     return await publishToTopicFun(
       topicName,
       message,
       messageGroupId,
       messageDeduplicationId,
-      topicArn
+      topicArn,
+      MessageAttributes
     );
   }
 
@@ -64,15 +71,13 @@ export default class SnsSqsSlq {
     return await getQueueAttributesFun(queueUrl);
   }
 
-  async subscribeToTopic(topicArn: string, queueArn: string): Promise<any> {
-    return await subscribeToTopicFun(topicArn, queueArn);
-  }
+
 
   async getSubscriptionsInTopic(topicArn: string): Promise<IGetSubscriptionsInTopic> {
     return await getSubscriptionsInTopicFun(topicArn);
   }
 
-  async setFilterPolicyAttributeInSubscription(SubscriptionArn: string, attributeValue: string): Promise<any> {
+  async setFilterPolicyAttributeInSubscription(SubscriptionArn: string, attributeValue: IAttributeValue): Promise<any> {
     return await setFilterPolicyAttributeInSubscriptionFun (SubscriptionArn, attributeValue);
   }
 }

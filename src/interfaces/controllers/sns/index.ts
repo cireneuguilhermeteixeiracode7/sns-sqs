@@ -8,6 +8,22 @@ export interface IGetAllTopicsReturn {
   Topics: Array<IGetTopicReturn>;
 }
 
+export interface IAttributeValue {
+  [key: string]: Array<any>;
+}
+
+
+
+export interface IMessageAttributes {
+  [key: string]: IMessageAttributeValue
+}
+
+export interface IMessageAttributeValue {
+    DataType: string;
+    StringValue: string;
+}
+
+
 export interface ISubscription {
   Endpoint: string;
   Owner: string;
