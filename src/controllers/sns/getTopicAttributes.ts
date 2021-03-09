@@ -15,7 +15,7 @@ export default function getTopicAttributes(topicArn: string): Promise<any> {
           resolve(data);
         })
         .catch((err) => {
-          throw err;
+          reject(err);
         });
     } catch (e) {
       reject(e);

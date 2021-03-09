@@ -20,7 +20,7 @@ export default (queueName: string): Promise<any> => {
           resolve(data);
         })
         .catch((err) => {
-          throw err;
+          reject(err);
         });
     } catch (e) {
       reject(e);

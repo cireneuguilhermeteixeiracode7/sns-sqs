@@ -14,7 +14,7 @@ export default function getAllTopics(): Promise<IGetAllTopicsReturn> {
           resolve(data);
         })
         .catch((err) => {
-          throw err;
+          reject(err);
         });
     } catch (e) {
       reject(e);

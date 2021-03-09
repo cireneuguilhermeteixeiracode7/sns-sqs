@@ -102,16 +102,16 @@ describe("SNS tests", () => {
 
       const queueAttributes: any = await getQueueAttributes(queue.QueueUrl);
 
-      if (topicAttributes) {
+      if (topicAttributes) {        
         const subscription: ISubscribeReturn = await subscribeToTopic(
           topicAttributes.Attributes.TopicArn,
-          queueAttributes.Attributes.QueueArn
+          queueAttributes.Attributes.QueueArn,
+          queue.QueueUrl
         );
-
+        
         expect(typeof subscription).toBe("object");
         expect(typeof subscription.ResponseMetadata).toBe("object");
         expect(typeof subscription.ResponseMetadata.RequestId).toBe("string");
-        expect(typeof subscription.SubscriptionArn).toBe("string");
       }
     }
   });

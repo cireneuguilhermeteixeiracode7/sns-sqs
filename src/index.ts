@@ -45,14 +45,16 @@ export default class SnsSqsSlq {
     message: string,
     messageGroupId: string,
     messageDeduplicationId: string,
-    topicArn: string
+    topicArn: string,
+    MessageAttributes?:object
   ) {
     return await publishToTopicFun(
       topicName,
       message,
       messageGroupId,
       messageDeduplicationId,
-      topicArn
+      topicArn,
+      MessageAttributes
     );
   }
 
@@ -64,8 +66,8 @@ export default class SnsSqsSlq {
     return await getQueueAttributesFun(queueUrl);
   }
 
-  async subscribeToTopic(topicArn: string, queueArn: string): Promise<any> {
-    return await subscribeToTopicFun(topicArn, queueArn);
+  async subscribeToTopic(topicArn: string, queueArn: string, queueUrl: string): Promise<any> {
+    return await subscribeToTopicFun(topicArn, queueArn, queueUrl);
   }
 
   async getSubscriptionsInTopic(topicArn: string): Promise<IGetSubscriptionsInTopic> {

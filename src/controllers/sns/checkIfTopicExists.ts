@@ -29,7 +29,7 @@ export default async function checkIfTopicExists(
           }
         })
         .catch((err) => {
-          throw err;
+          reject(err);
         });
     } catch (e) {
       reject(e);

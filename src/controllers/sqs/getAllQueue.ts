@@ -13,7 +13,7 @@ export default async function getAllQueue(): Promise<IGetAllQueueFun> {
           resolve(data);
         })
         .catch((err) => {
-          throw err;
+          reject(err);
         });
     } catch (e) {
       reject(e);

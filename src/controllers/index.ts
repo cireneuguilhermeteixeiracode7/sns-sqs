@@ -54,7 +54,8 @@ export async function publishToTopicFun(
   message: string,
   messageGroupId: string,
   messageDeduplicationId: string,
-  topicArn: string
+  topicArn: string,
+  MessageAttributes?: object
 ): Promise<any> {
   try {
     const ifTopicExists: boolean = await checkIfTopicExists(topicName);
@@ -64,7 +65,8 @@ export async function publishToTopicFun(
         message,
         topicArn,
         messageGroupId,
-        messageDeduplicationId
+        messageDeduplicationId,
+        MessageAttributes
       );
       return publishedMessage;
     }else{
@@ -106,7 +108,8 @@ export async function getTopicAttributesFun(topicArn: string): Promise<any> {
 
 export async function subscribeToTopicFun(
   topicArn: string,
-  queueArn: string
+  queueArn: string,
+  queueUrl: string
 ): Promise<any> {
   try {
     const ifTopicExists: boolean = await checkIfTopicExists(
@@ -114,7 +117,7 @@ export async function subscribeToTopicFun(
     );
 
     if (ifTopicExists) {
-      return subscribeToTopic(topicArn, queueArn);
+      return subscribeToTopic(topicArn, queueArn, queueUrl);
     }else{
       throw("Topic does not exist in that region.");
     }

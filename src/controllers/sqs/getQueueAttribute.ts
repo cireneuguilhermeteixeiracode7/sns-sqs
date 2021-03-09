@@ -17,7 +17,7 @@ export default function getQueueAttributes(queueUrl: string): Promise<any> {
           resolve(data);
         })
         .catch((err) => {
-          throw err;
+          reject(err);
         });
     } catch (e) {
       reject(e);

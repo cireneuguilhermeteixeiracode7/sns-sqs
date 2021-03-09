@@ -30,7 +30,7 @@ export default async function checkIfQueueExists(
           }
         })
         .catch((err) => {
-          throw err;
+          reject(err);
         });
     } catch (e) {
       reject(e);
