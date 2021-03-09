@@ -154,9 +154,9 @@ describe("SNS tests", () => {
     if (topic) {
       const subscriptionsInTopic: IGetSubscriptionsInTopic = await getSubscriptionsInTopic(topic.TopicArn);
       let subscription = await setFilterPolicyAttributeInSubscription(
-        subscriptionsInTopic.Subscriptions[0].SubscriptionArn,JSON.stringify({
+        subscriptionsInTopic.Subscriptions[0].SubscriptionArn, {
           test:['1','2','3']
-        }));
+        });
         
       expect(typeof subscription).toBe("object");
       expect(typeof subscription.ResponseMetadata).toBe("object");

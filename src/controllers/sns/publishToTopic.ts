@@ -1,11 +1,13 @@
 import AWS from "../../config/aws/config";
+import { IMessageAttributes } from '../../interfaces/controllers/sns/index';
+
 
 export default async function publish(
   message: string,
   topicArn: string,
   messageGroupId: string,
   messageDeduplicationId: string,
-  MessageAttributes?:object
+  MessageAttributes?:IMessageAttributes
 ): Promise<any> {
   return new Promise((resolve, reject) => {
     try {

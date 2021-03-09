@@ -7,7 +7,6 @@ export default async function checkIfTopicExists(
 
   return new Promise((resolve, reject) => {
     try {
-      console.log('topicName', topicName);
       
       const sdTopicName: string = standartazeTopicName(topicName);
       const listTopics = new AWS.SNS({ apiVersion: process.env.AWS_API_VERSION })

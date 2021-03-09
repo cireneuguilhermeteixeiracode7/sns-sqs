@@ -1,13 +1,14 @@
 import AWS from "../../config/aws/config";
+import { IAttributeValue } from '../../interfaces/controllers/sns/index';
 
-export default (SubscriptionArn: string, attributeValue: string): Promise<any> => {
+export default (SubscriptionArn: string, attributeValue: IAttributeValue): Promise<any> => {
   return new Promise((resolve, reject) => {
     try {
       const setFilterPolicyAttributeInSubscription = new AWS.SNS({ apiVersion: process.env.AWS_API_VERSION })
         .setSubscriptionAttributes({
           SubscriptionArn: SubscriptionArn,
           AttributeName: 'FilterPolicy',
-          AttributeValue: attributeValue
+          AttributeValue: JSON.stringify(attributeValue)
         })
         .promise();
 
