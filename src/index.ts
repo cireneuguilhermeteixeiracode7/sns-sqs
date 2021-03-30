@@ -47,7 +47,7 @@ export default class SnsSqsSlq {
 
   async publishToTopic(
     topicName: string,
-    message: string,
+    message: any,
     messageGroupId: string,
     messageDeduplicationId: string,
     topicArn: string,

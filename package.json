@@ -26,8 +26,7 @@
     "test": "cross-env NODE_ENV=development jest",
     "test:w": "cross-env NODE_ENV=development jest --watch",
     "dev": "nodemon src/index.ts",
-    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
-    "build:tsc": "tsc",
+    "build": "tsc",
     "refresh": "rm -rf ./node_modules ./yarn.lock ./yarn-error.log yarn install"
   },
   "husky": {
