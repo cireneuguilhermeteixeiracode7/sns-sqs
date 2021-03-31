@@ -13,7 +13,7 @@ export default (topicArn: string, queueArn: string, queueUrl: string): Promise<a
 
 
       subscribeToTopic
-        .then(() => {
+        .then(data => {
           const queueAttributes = new AWS.SQS({ apiVersion: process.env.AWS_API_VERSION })
           .getQueueAttributes({
             QueueUrl: queueUrl,
@@ -65,8 +65,8 @@ export default (topicArn: string, queueArn: string, queueUrl: string): Promise<a
               },
             }).promise();
 
-            setQueueAttributesResponse.then(resp=>{
-              resolve(resp);
+            setQueueAttributesResponse.then(()=>{
+              resolve(data);
             })
           })
         })
