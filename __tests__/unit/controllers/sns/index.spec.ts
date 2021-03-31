@@ -110,6 +110,7 @@ describe("SNS tests", () => {
         );
         
         expect(typeof subscription).toBe("object");
+        expect(typeof subscription.SubscriptionArn).toBe("string");
         expect(typeof subscription.ResponseMetadata).toBe("object");
         expect(typeof subscription.ResponseMetadata.RequestId).toBe("string");
       }
