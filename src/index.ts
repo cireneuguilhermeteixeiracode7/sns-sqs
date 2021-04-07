@@ -9,21 +9,18 @@ import {
   createOrGetQueueFun,
   getQueueAttributesFun,
   getAllQueueFun,
+  associatesQueueWithLambdaFun,
   setFilterPolicyAttributeInSubscriptionFun,
   getSubscriptionsInTopicFun,
+  deleteTopicFun,
+  deleteQueueFun,
+  clearEventSourcesFromLambdaFun,
+  deleteSubscriptionFun
 } from "./controllers";
-
-import {
-  ICreateTopicFun,
-  ICreateQueueFun,
-  IGetAllQueueFun,
-} from "./interfaces/controllers";
-import { IGetAllTopicsReturn } from "./interfaces/controllers/sns";
-import {
-  IGetSubscriptionsInTopic,
-  IAttributeValue,
-  IMessageAttributes,
-} from "./interfaces/controllers/sns/index";
+import { ICreateTopicFun, ICreateQueueFun, IGetAllQueueFun } from "./interfaces/controllers";
+import {IGetAllTopicsReturn} from "./interfaces/controllers/sns";
+import { IEventSourceMappingConfiguration } from "./interfaces/controllers/sqs";
+import { IGetSubscriptionsInTopic, IAttributeValue, IMessageAttributes } from "./interfaces/controllers/sns/index";
 
 export default class SnsSqsSlq {
   private test: boolean = false;
@@ -81,9 +78,7 @@ export default class SnsSqsSlq {
     return await getQueueAttributesFun(queueUrl);
   }
 
-  async getSubscriptionsInTopic(
-    topicArn: string
-  ): Promise<IGetSubscriptionsInTopic> {
+  async getSubscriptionsInTopic(topicArn: string): Promise<IGetSubscriptionsInTopic> {
     return await getSubscriptionsInTopicFun(topicArn);
   }
 
@@ -95,5 +90,26 @@ export default class SnsSqsSlq {
       SubscriptionArn,
       attributeValue
     );
+  }
+
+  async associatesQueueWithLambda(eventSourceArn: string, functionName: string):Promise<IEventSourceMappingConfiguration>{
+    return await associatesQueueWithLambdaFun (eventSourceArn, functionName);
+  }
+
+  async deleteTopic(topicArn: string, deleteSubscriptions: boolean):Promise<any>{
+    return await deleteTopicFun(topicArn, deleteSubscriptions);
+  }
+
+
+  async deleteQueue(queueArn: string, queueUrl: string, deleteSubscriptions: boolean):Promise<any>{
+    return await deleteQueueFun(queueArn, queueUrl, deleteSubscriptions);
+  }
+
+  async deleteSubscription(subscriptionArn: string):Promise<any>{
+    return await deleteSubscriptionFun(subscriptionArn);
+  }
+
+  async clearEventSourcesFromLambda(lambdaName: string):Promise<any>{
+    return await clearEventSourcesFromLambdaFun(lambdaName);
   }
 }

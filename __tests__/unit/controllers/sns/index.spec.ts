@@ -7,7 +7,7 @@ import publishToTopic from "@controllers/sns/publishToTopic";
 import getSubscriptionsInTopic from "@controllers/sns/getSubscriptionsInTopic";
 import subscribeToTopic from "@controllers/sns/subscribeToTopic";
 import setFilterPolicyAttributeInSubscription from "@controllers/sns/setFilterPolicyAttributeInSubscription";
-
+import deleteTopic from '@controllers/sns/deleteTopic';
 import getQueue from "@controllers/sqs/getQueue";
 import getAllQueue from "@controllers/sqs/getAllQueue";
 import getQueueAttributes from "@controllers/sqs/getQueueAttribute";
@@ -102,7 +102,7 @@ describe("SNS tests", () => {
 
       const queueAttributes: any = await getQueueAttributes(queue.QueueUrl);
 
-      if (topicAttributes) {        
+      if (topicAttributes) {
         const subscription: ISubscribeReturn = await subscribeToTopic(
           topicAttributes.Attributes.TopicArn,
           queueAttributes.Attributes.QueueArn,
@@ -164,4 +164,15 @@ describe("SNS tests", () => {
       expect(typeof subscription.ResponseMetadata.RequestId).toBe("string");
     }
   });
+
+
+  it("should create a topic and delete.", async () => {
+    const topic: ICreateTopicReturn = await createTopic("topicToDelete");    
+    const response = await deleteTopic(topic.TopicArn, true);
+
+    expect(typeof response).toBe("object");
+    expect(typeof response.ResponseMetadata).toBe("object");
+    expect(typeof response.ResponseMetadata.RequestId).toBe("string");
+  });
+
 });
