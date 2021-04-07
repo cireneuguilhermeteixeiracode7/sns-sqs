@@ -1,6 +1,6 @@
 {
   "name": "sns-sqs-slq-code7",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "A AWS SNS, SQS, and SLQ wrapper for Node.js",
   "author": "Davi Silva <davi.silva@code7.com>",
   "source": "src/index.ts",

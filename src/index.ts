@@ -17,10 +17,18 @@ import {
   clearEventSourcesFromLambdaFun,
   deleteSubscriptionFun
 } from "./controllers";
-import { ICreateTopicFun, ICreateQueueFun, IGetAllQueueFun } from "./interfaces/controllers";
+import { 
+  ICreateTopicFun,
+  ICreateQueueFun,
+  IGetAllQueueFun 
+} from "./interfaces/controllers";
 import {IGetAllTopicsReturn} from "./interfaces/controllers/sns";
 import { IEventSourceMappingConfiguration } from "./interfaces/controllers/sqs";
-import { IGetSubscriptionsInTopic, IAttributeValue, IMessageAttributes } from "./interfaces/controllers/sns/index";
+import { 
+  IGetSubscriptionsInTopic,
+  IAttributeValue,
+  IMessageAttributes 
+} from "./interfaces/controllers/sns/index";
 
 export default class SnsSqsSlq {
   private test: boolean = false;
