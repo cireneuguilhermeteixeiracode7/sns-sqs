@@ -13,12 +13,17 @@ import checkIfQueueExists from "./sqs/checkIfQueueExists";
 import getQueue from "./sqs/getQueue";
 import getAllQueue from "./sqs/getAllQueue";
 import getQueueAttribute from "./sqs/getQueueAttribute";
-
+import associatesQueueWithLambda from './sqs/associatesQueueWithLambda';
+import deleteQueue from './sqs/deleteQueue';
+import deleteTopic from './sns/deleteTopic';
+import clearEventSourcesFromLambda from './sqs/clearEventSourcesFromLambda';
+import deleteSubscription from './sns/deleteSubscription';
 import {
   standartazeTopicName,
   standartazeQueueName,
 } from "../utils/validators";
 import { error } from "../utils/logger/logger";
+import { IEventSourceMappingConfiguration } from "../interfaces/controllers/sqs";
 
 import { IAttributeValue, IMessageAttributes } from '../interfaces/controllers/sns/index';
 import { ICreateTopicFun, ICreateQueueFun } from "../interfaces/controllers";
@@ -185,6 +190,53 @@ export async function createOrGetQueueFun(
     throw err;
   }
 }
+
+export async function associatesQueueWithLambdaFun(eventSourceArn: string, functionName: string):Promise<IEventSourceMappingConfiguration>  {
+  try {
+    return associatesQueueWithLambda(eventSourceArn, functionName);
+  } catch (err) {
+    error(err);
+    throw err;
+  }
+}
+
+export async function deleteTopicFun(topicArn: string, deleteSubscriptions: boolean) {
+  try {
+    return deleteTopic(topicArn, deleteSubscriptions);
+  } catch (err) {
+    error(err);
+    throw err;
+  }
+}
+
+export async function deleteQueueFun(queueArn: string, queueUrl: string, deleteSubscriptions: boolean) {
+  try {
+    return deleteQueue(queueArn, queueUrl, deleteSubscriptions);
+  } catch (err) {
+    error(err);
+    throw err;
+  }
+}
+
+export async function clearEventSourcesFromLambdaFun(lambdaName: string) {
+  try {
+    return clearEventSourcesFromLambda(lambdaName);
+  } catch (err) {
+    error(err);
+    throw err;
+  }
+}
+
+export async function deleteSubscriptionFun(subscriptionArn: string) {
+  try {
+    return deleteSubscription(subscriptionArn);
+  } catch (err) {
+    error(err);
+    throw err;
+  }
+}
+
+
 
 export async function getQueueAttributesFun(queueUrl: string): Promise<any> {
   try {
